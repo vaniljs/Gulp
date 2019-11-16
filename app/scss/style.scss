@@ -1,9 +1,6 @@
-@import "vars";
-@import "libs";
-@import "fonts";
-
-
-
-
-
-@import "media";
+body {
+  user-select: none;
+  p {
+    color: green;
+  }
+}
