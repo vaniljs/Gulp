@@ -7,22 +7,33 @@ var gulp = require('gulp'),
     autoprefixer = require('gulp-autoprefixer'),
     babel = require('gulp-babel'),
     uglify = require('gulp-uglify'),
-    pugCompile = require('gulp-pug');
+    pugCompile = require('gulp-pug'),
+    image = require('gulp-image');
+
+gulp.task('image', function (done) {
+    gulp.src('./src/img/**/*')
+        .pipe(image())
+        .pipe(gulp.dest('./dist/img'));
+    done()
+});
+
 
 sass.compiler = require('node-sass');
 
-gulp.task('clean', async function () {
-    del.sync('dist')
+gulp.task('clean', async function (done) {
+    del.sync('dist');
+    done()
 });
 
-gulp.task('pug', function () {
+gulp.task('pug', function (done) {
     return gulp.src('src/*.pug')
         .pipe(pugCompile())
         .pipe(gulp.dest('dist'))
-        .pipe(browserSync.reload({stream: true}))
+        .pipe(browserSync.reload({stream: true}));
+    done()
 });
 
-gulp.task('sass', function () {
+gulp.task('sass', function (done) {
     return gulp.src('src/scss/**/*.sass')
         .pipe(sass())
         .pipe(cssnano())
@@ -32,10 +43,11 @@ gulp.task('sass', function () {
         }))
         .pipe(rename({suffix: '.min'}))
         .pipe(gulp.dest('dist/css'))
-        .pipe(browserSync.reload({stream: true}))
+        .pipe(browserSync.reload({stream: true}));
+    done()
 });
 
-gulp.task('javascript', function () {
+gulp.task('javascript', function (done) {
     return gulp.src('src/js/**/*.js')
         .pipe(babel({
             presets: ['@babel/env']
@@ -43,7 +55,8 @@ gulp.task('javascript', function () {
         .pipe(rename({suffix: '.min'}))
         .pipe(uglify())
         .pipe(gulp.dest('dist/js'))
-        .pipe(browserSync.reload({stream: true}))
+        .pipe(browserSync.reload({stream: true}));
+    done()
 });
 
 gulp.task('browser-sync', function () {
