@@ -1,3 +1,7 @@
 ###  Gulp default template
 
-Шаблон для front-end
+Собирает все плагины в одну библиотеку. 
+
+- jQuery
+- Boostrap 
+- FancyBox 
