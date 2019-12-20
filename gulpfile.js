@@ -33,6 +33,19 @@ gulp.task('pug', function (done) {
     done()
 });
 
+gulp.task('css', function (done) {
+    return gulp.src('src/scss/**/*.css')
+        .pipe(cssnano())
+        .pipe(autoprefixer({
+            overrideBrowserslist: ['last 2 versions'],
+            cascade: false
+        }))
+        .pipe(rename({suffix: '.min'}))
+        .pipe(gulp.dest('dist/css'))
+        .pipe(browserSync.reload({stream: true}));
+    done()
+});
+
 gulp.task('sass', function (done) {
     return gulp.src('src/scss/**/*.sass')
         .pipe(sass())
